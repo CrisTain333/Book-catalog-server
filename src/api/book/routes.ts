@@ -2,13 +2,16 @@ import express from 'express';
 import { BooksController } from './controller';
 import validateRequest from '../../middleware/validateRequest';
 import { bookValidation } from './validate';
+import auth from '../../middleware/auth';
+// import auth from '../../middleware/auth';
 const router = express.Router();
 
-router.get('/', BooksController.getAllBooks);
 router.post(
     '/create-book',
+    auth(),
     validateRequest(bookValidation.bookZodSchema),
     BooksController.createBook
 );
 
+router.get('/', BooksController.getAllBooks);
 export const BooksRoutes = router;
