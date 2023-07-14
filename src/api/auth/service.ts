@@ -1,7 +1,11 @@
 import ApiError from '../../error/ApiError';
 import { User } from '../../model/User';
-import { IUser } from './interface';
+import { ILoginUser, IUser } from './interface';
 import httpCode from 'http-status-codes';
+import bcrypt from 'bcrypt';
+import { jwtHelper } from '../../helper/jwtHelper';
+import { Secret } from 'jsonwebtoken';
+import config from '../../config';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
     const { name, email, password } = user;
@@ -22,14 +26,46 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
         password
     });
 
-    // const userWithoutPassword = await User.findOne({name: newUser.name})
-
-    //  .select('-password');
-
-    // return the newly created user ;
     return newUser;
 };
 
+const login = async (payload: ILoginUser) => {
+    const { email: userEmail, password } = payload;
+    const isUserExist = await User.findOne({ email: userEmail });
+
+    // check the email exist
+    if (!isUserExist) {
+        throw new ApiError(httpCode.NOT_FOUND, 'User does not exist');
+    }
+
+    // check the password
+    const isPasswordMatched = await bcrypt.compare(
+        password,
+        isUserExist?.password
+    );
+
+    // if not matched throw error;
+    if (!isPasswordMatched) {
+        throw new ApiError(
+            httpCode.UNAUTHORIZED,
+            'Invalid credentials'
+        );
+    }
+    const { name, email } = isUserExist;
+
+    // if matched created
+    const accessToken = jwtHelper.createToken(
+        { name, email },
+        config.jwt.secret as Secret,
+        config.jwt.expires_in as string
+    );
+
+    return {
+        accessToken
+    };
+};
+
 export const AuthService = {
-    createUser
+    createUser,
+    login
 };

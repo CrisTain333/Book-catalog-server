@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { IUser } from './interface';
+import { ILoginUser, IUser } from './interface';
 import { AuthService } from './service';
 import sendResponse from '../../shared/sendResponse';
 import httpCode from 'http-status-codes';
@@ -7,7 +7,6 @@ import httpCode from 'http-status-codes';
 const registerUser: RequestHandler = async (req, res, next) => {
     try {
         const user: IUser = req.body;
-        console.log(user);
         const response = await AuthService.createUser(user);
         sendResponse(res, {
             success: true,
@@ -20,6 +19,24 @@ const registerUser: RequestHandler = async (req, res, next) => {
     }
 };
 
+const signUpUser: RequestHandler = async (req, res, next) => {
+    try {
+        const data: ILoginUser = req.body;
+        const response = await AuthService.login(data);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpCode.OK,
+            message: 'Login Success',
+            data: {
+                accessToken: response?.accessToken
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const AuthController = {
-    registerUser
+    registerUser,
+    signUpUser
 };
