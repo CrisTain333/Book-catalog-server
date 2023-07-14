@@ -24,8 +24,20 @@ const createBook: RequestHandler = async (req, res, next) => {
         sendResponse(res, {
             statusCode: httpCode.OK,
             success: true,
-            data: '',
             message: 'Book created successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+const deleteBook: RequestHandler = async (req, res, next) => {
+    try {
+        const bookID = req.params.id;
+        await BookService.deleteBookFromDb(bookID);
+        sendResponse(res, {
+            statusCode: httpCode.OK,
+            success: true,
+            message: 'Book deleted successfully'
         });
     } catch (error) {
         next(error);
@@ -34,5 +46,6 @@ const createBook: RequestHandler = async (req, res, next) => {
 
 export const BooksController = {
     getAllBooks,
-    createBook
+    createBook,
+    deleteBook
 };

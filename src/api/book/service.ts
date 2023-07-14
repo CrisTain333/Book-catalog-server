@@ -11,7 +11,14 @@ const addBookToDb = async (payload: IBook): Promise<IBook | null> => {
     return result;
 };
 
+const deleteBookFromDb = async (bookId: string) => {
+    const result = await Book.deleteOne({ _id: bookId });
+
+    return result;
+};
+
 export const BookService = {
     getAllBooksFromDb,
-    addBookToDb
+    addBookToDb,
+    deleteBookFromDb
 };
