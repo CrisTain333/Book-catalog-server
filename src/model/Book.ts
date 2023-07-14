@@ -21,6 +21,10 @@ const bookSchema = new Schema<IBook>(
         reviews: {
             type: [String], // Specify the array type with string items
             default: []
+        },
+        addedBy: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }
     },
     {
