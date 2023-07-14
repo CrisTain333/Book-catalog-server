@@ -22,6 +22,10 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
         password
     });
 
+    // const userWithoutPassword = await User.findOne({name: newUser.name})
+
+    //  .select('-password');
+
     // return the newly created user ;
     return newUser;
 };
