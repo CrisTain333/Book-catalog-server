@@ -5,12 +5,11 @@ import express, {
     Response
 } from 'express';
 import cors from 'cors';
+import globalErrorHandler from './middleware/errorHandler';
 // import router from './app/routes';
-// import globalErrorHandler from './middleware/errorHandeler';
 // import cookieParser from 'cookie-parser';
 
 // import router from './app/routes';
-// import globalErrorHandler from './middleware/globalErrorHandler';
 
 const app: Application = express();
 
@@ -23,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/api/v1', router);
 
 // Global Error handler
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 // Handle Not found
 app.use((req: Request, res: Response, next: NextFunction) => {
