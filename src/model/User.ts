@@ -6,11 +6,11 @@ const userSchema = new Schema<IUser>(
     {
         name: {
             type: String,
-            require: true
+            required: true
         },
         email: {
             type: String,
-            require: true,
+            required: true,
             unique: true
         },
         password: { type: String, required: true }

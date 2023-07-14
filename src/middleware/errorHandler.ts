@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
+// import { IErrorResponse, IErrorMessage } from '../interface/error';
 import handleValidationError from '../error/handleValidationError';
 import config from '../config';
+import handleZodError from '../error/zodErrorHandler';
+import { ZodError } from 'zod';
 import ApiError from '../error/ApiError';
 import { IErrorMessage, IErrorResponse } from '../types/error';
 
@@ -22,6 +25,11 @@ const globalErrorHandler: ErrorRequestHandler = (
         statusCode = validationError.statusCode;
         message = validationError.message;
         errorMessages = validationError.errorMessages;
+    } else if (error instanceof ZodError) {
+        const simplifiedError = handleZodError(error);
+        statusCode = simplifiedError.statusCode;
+        message = simplifiedError.message;
+        errorMessages = simplifiedError.errorMessages;
     } else if (error instanceof ApiError) {
         statusCode = error?.statusCode;
         message = error.message;

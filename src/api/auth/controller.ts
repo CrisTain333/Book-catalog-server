@@ -7,6 +7,7 @@ import httpCode from 'http-status-codes';
 const registerUser: RequestHandler = async (req, res, next) => {
     try {
         const user: IUser = req.body;
+        console.log(user);
         const response = await AuthService.createUser(user);
         sendResponse(res, {
             success: true,
