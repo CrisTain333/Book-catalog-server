@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { BookModel, IBook } from '../api/book/interface';
+import { bookGenre } from '../api/book/constant';
 const bookSchema = new Schema<IBook>(
     {
         title: {
@@ -12,7 +13,8 @@ const bookSchema = new Schema<IBook>(
         },
         genre: {
             type: String,
-            required: true
+            required: true,
+            enum: bookGenre
         },
         publicationDate: {
             type: String,

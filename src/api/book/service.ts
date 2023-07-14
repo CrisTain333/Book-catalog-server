@@ -6,6 +6,12 @@ const getAllBooksFromDb = async (): Promise<IBook[] | null> => {
     return result;
 };
 
+const addBookToDb = async (payload: IBook): Promise<IBook | null> => {
+    const result = await Book.create(payload);
+    return result;
+};
+
 export const BookService = {
-    getAllBooksFromDb
+    getAllBooksFromDb,
+    addBookToDb
 };

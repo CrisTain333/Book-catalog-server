@@ -17,6 +17,22 @@ const getAllBooks: RequestHandler = async (req, res, next) => {
     }
 };
 
+const createBook: RequestHandler = async (req, res, next) => {
+    try {
+        const payload = req.body;
+        await BookService.addBookToDb(payload);
+        sendResponse(res, {
+            statusCode: httpCode.OK,
+            success: true,
+            data: '',
+            message: 'Book created successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const BooksController = {
-    getAllBooks
+    getAllBooks,
+    createBook
 };
