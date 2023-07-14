@@ -29,4 +29,9 @@ export type IBook = {
     addedBy?: Types.ObjectId | IUser;
 };
 
+export type IReviewPayload = {
+    bookId: string;
+    review: string;
+};
+
 export type BookModel = Model<IBook, Record<string, unknown>>;

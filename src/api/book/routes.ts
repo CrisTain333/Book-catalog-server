@@ -13,6 +13,16 @@ router.post(
     BooksController.createBook
 );
 router.delete('/:id', auth(), BooksController.deleteBook);
+
+router.get('/:id', BooksController.getSingleBook);
+
+router.patch(
+    '/add-review/:id',
+    auth(),
+    validateRequest(bookValidation.reviewZodSchema),
+    BooksController.addBookReviews
+);
+
 router.get('/', BooksController.getAllBooks);
 
 export const BooksRoutes = router;

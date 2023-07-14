@@ -16,6 +16,20 @@ const getAllBooks: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+const getSingleBook: RequestHandler = async (req, res, next) => {
+    try {
+        const bookID = req.params.id;
+        const result = await BookService.getSingleBookFromDb(bookID);
+        sendResponse(res, {
+            statusCode: httpCode.OK,
+            success: true,
+            data: result,
+            message: 'Book Retrieved Successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 const createBook: RequestHandler = async (req, res, next) => {
     try {
@@ -43,9 +57,25 @@ const deleteBook: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+const addBookReviews: RequestHandler = async (req, res, next) => {
+    try {
+        const bookId = req.params.id;
+        const review = req.body.review;
+        await BookService.addReviews({ bookId, review });
+        sendResponse(res, {
+            statusCode: httpCode.OK,
+            success: true,
+            message: 'Review Added successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const BooksController = {
     getAllBooks,
     createBook,
-    deleteBook
+    deleteBook,
+    getSingleBook,
+    addBookReviews
 };
