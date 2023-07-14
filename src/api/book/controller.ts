@@ -71,11 +71,27 @@ const addBookReviews: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+const updateBook: RequestHandler = async (req, res, next) => {
+    try {
+        const bookId = req.params.id;
+        const payload = req.body;
+        const result = await BookService.updateBook(payload, bookId);
+        sendResponse(res, {
+            statusCode: httpCode.OK,
+            success: true,
+            message: 'Review Added successfully',
+            data: result
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const BooksController = {
     getAllBooks,
     createBook,
     deleteBook,
     getSingleBook,
-    addBookReviews
+    addBookReviews,
+    updateBook
 };

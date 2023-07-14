@@ -68,10 +68,34 @@ const addReviews = async (payload: IReviewPayload) => {
     }
 };
 
+const updateBook = async (
+    payload: IBook,
+    bookId: string
+): Promise<IBook | null> => {
+    if (!bookId) {
+        throw new ApiError(
+            httpCode.BAD_REQUEST,
+            'Book id is required'
+        );
+    }
+
+    const isExits = Book.findById(bookId);
+    if (!isExits) {
+        throw new ApiError(httpCode.NOT_FOUND, 'Book Not found');
+    }
+
+    const result = Book.findOneAndUpdate({ _id: bookId }, payload, {
+        new: true
+    });
+
+    return result;
+};
+
 export const BookService = {
     getAllBooksFromDb,
     addBookToDb,
     deleteBookFromDb,
     getSingleBookFromDb,
-    addReviews
+    addReviews,
+    updateBook
 };

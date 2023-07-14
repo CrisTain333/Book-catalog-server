@@ -23,6 +23,13 @@ router.patch(
     BooksController.addBookReviews
 );
 
+router.patch(
+    '/update-book/:id',
+    auth(),
+    validateRequest(bookValidation.bookUpdateZodSchema),
+    BooksController.updateBook
+);
+
 router.get('/', BooksController.getAllBooks);
 
 export const BooksRoutes = router;
