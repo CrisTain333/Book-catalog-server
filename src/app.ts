@@ -6,10 +6,8 @@ import express, {
 } from 'express';
 import cors from 'cors';
 import globalErrorHandler from './middleware/errorHandler';
-// import router from './app/routes';
+import router from './routes';
 // import cookieParser from 'cookie-parser';
-
-// import router from './app/routes';
 
 const app: Application = express();
 
@@ -19,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Entrance
-// app.use('/api/v1', router);
+app.use('/api/v1', router);
 
 // Global Error handler
 app.use(globalErrorHandler);
