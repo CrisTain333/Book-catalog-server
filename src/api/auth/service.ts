@@ -66,8 +66,20 @@ const login = async (payload: ILoginUser) => {
     };
 };
 
-export const getUser = (req: any) => {
-    console.log(req.user);
+export const getUser = async (req: any) => {
+    if (!req.user) {
+        throw new ApiError(httpCode.UNAUTHORIZED, 'User not found');
+    }
+    const { email } = req.user;
+
+    // console.log(req.user);
+    const response = await User.findOne({ email: email });
+    const { name, email: userEmail } = response!;
+    const data = {
+        name,
+        email: userEmail
+    };
+    return data;
 };
 
 export const AuthService = {
