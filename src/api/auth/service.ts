@@ -74,8 +74,9 @@ export const getUser = async (req: any) => {
 
     // console.log(req.user);
     const response = await User.findOne({ email: email });
-    const { name, email: userEmail } = response!;
+    const { _id, name, email: userEmail } = response!;
     const data = {
+        _id,
         name,
         email: userEmail
     };

@@ -5,7 +5,7 @@ import { IBook, IReviewPayload } from './interface';
 import httpCode from 'http-status-codes';
 
 const getAllBooksFromDb = async (): Promise<IBook[] | null> => {
-    const result = await Book.find({});
+    const result = await Book.find({}).sort({ createdAt: 1 });
     return result;
 };
 
