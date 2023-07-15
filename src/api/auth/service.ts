@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ApiError from '../../error/ApiError';
 import { User } from '../../model/User';
 import { ILoginUser, IUser } from './interface';
@@ -65,7 +66,12 @@ const login = async (payload: ILoginUser) => {
     };
 };
 
+export const getUser = (req: any) => {
+    console.log(req.user);
+};
+
 export const AuthService = {
     createUser,
-    login
+    login,
+    getUser
 };

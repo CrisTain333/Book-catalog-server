@@ -36,7 +36,22 @@ const signUpUser: RequestHandler = async (req, res, next) => {
     }
 };
 
+const getUserProfile: RequestHandler = async (req, res, next) => {
+    try {
+        const response = await AuthService.getUser(req);
+        sendResponse(res, {
+            success: true,
+            statusCode: httpCode.OK,
+            message: 'User retrieved successfully',
+            data: response
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const AuthController = {
     registerUser,
-    signUpUser
+    signUpUser,
+    getUserProfile
 };
