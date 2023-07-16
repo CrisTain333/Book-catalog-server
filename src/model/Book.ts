@@ -1,16 +1,21 @@
 import { Schema, model } from 'mongoose';
 import { BookModel, IBook } from '../api/book/interface';
 import { bookGenre } from '../api/book/constant';
-const reviewSchema = new Schema({
-    message: {
-        type: String,
-        required: true
+const reviewSchema = new Schema(
+    {
+        message: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        }
     },
-    name: {
-        type: String,
-        required: true
+    {
+        timestamps: true
     }
-});
+);
 
 const bookSchema = new Schema<IBook>(
     {
