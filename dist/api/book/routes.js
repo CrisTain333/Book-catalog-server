@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BooksRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const controller_1 = require("./controller");
+const validateRequest_1 = __importDefault(require("../../middleware/validateRequest"));
+const validate_1 = require("./validate");
+const auth_1 = __importDefault(require("../../middleware/auth"));
+// import auth from '../../middleware/auth';
+const router = express_1.default.Router();
+router.post('/create-book', (0, auth_1.default)(), (0, validateRequest_1.default)(validate_1.bookValidation.bookZodSchema), controller_1.BooksController.createBook);
+router.delete('/:id', (0, auth_1.default)(), controller_1.BooksController.deleteBook);
+router.get('/:id', controller_1.BooksController.getSingleBook);
+router.patch('/add-review/:id', (0, auth_1.default)(), (0, validateRequest_1.default)(validate_1.bookValidation.reviewZodSchema), controller_1.BooksController.addBookReviews);
+router.patch('/update-book/:id', (0, auth_1.default)(), (0, validateRequest_1.default)(validate_1.bookValidation.bookUpdateZodSchema), controller_1.BooksController.updateBook);
+router.get('/', controller_1.BooksController.getAllBooks);
+exports.BooksRoutes = router;
