@@ -79,7 +79,7 @@ const updateBook: RequestHandler = async (req, res, next) => {
         sendResponse(res, {
             statusCode: httpCode.OK,
             success: true,
-            message: 'Review Added successfully',
+            message: 'Book Updated successfully',
             data: result
         });
     } catch (error) {

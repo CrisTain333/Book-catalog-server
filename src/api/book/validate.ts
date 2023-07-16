@@ -40,7 +40,7 @@ const bookUpdateZodSchema = z.object({
         publicationDate: z.string({
             required_error: 'Publication date Is Required'
         }),
-        reviews: z.array(z.string()).optional(),
+        reviews: z.array(z.object({})).optional(),
         addedBy: z.string({
             required_error: 'User id is Required'
         })
