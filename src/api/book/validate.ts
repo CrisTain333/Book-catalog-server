@@ -23,16 +23,7 @@ const bookZodSchema = z.object({
 });
 
 const reviewZodSchema = z.object({
-    body: z.object({
-        review: z.object({
-            message: z.string({
-                required_error: 'Message is required'
-            }),
-            name: z.string({
-                required_error: 'Name is required'
-            })
-        })
-    })
+    body: z.object({})
 });
 
 const bookUpdateZodSchema = z.object({

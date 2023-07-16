@@ -43,7 +43,6 @@ const addReviews = async (payload: IReviewPayload) => {
 
     try {
         const book = await Book.findOne({ _id: bookId });
-
         if (!book) {
             throw new ApiError(
                 httpCode.BAD_REQUEST,
@@ -55,6 +54,9 @@ const addReviews = async (payload: IReviewPayload) => {
             { _id: bookId },
             {
                 $push: { reviews: review }
+            },
+            {
+                new: true
             }
         );
 
