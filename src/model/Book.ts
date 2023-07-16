@@ -1,6 +1,17 @@
 import { Schema, model } from 'mongoose';
 import { BookModel, IBook } from '../api/book/interface';
 import { bookGenre } from '../api/book/constant';
+const reviewSchema = new Schema({
+    message: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    }
+});
+
 const bookSchema = new Schema<IBook>(
     {
         title: {
@@ -21,7 +32,7 @@ const bookSchema = new Schema<IBook>(
             required: true
         },
         reviews: {
-            type: [String], // Specify the array type with string items
+            type: [reviewSchema], // Specify the array type with string items
             default: []
         },
         addedBy: {

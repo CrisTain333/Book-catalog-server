@@ -11,7 +11,6 @@ const auth =
         try {
             //get authorization token
             const token = req.headers.authorization;
-            console.log(req.body);
             if (!token) {
                 throw new ApiError(401, 'You are not authorized');
             }

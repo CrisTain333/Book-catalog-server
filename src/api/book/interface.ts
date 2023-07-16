@@ -25,7 +25,7 @@ export type IBook = {
         | 'Classic'
         | 'Other';
     publicationDate: string;
-    reviews: string[];
+    reviews: { message: string; name: string }[];
     addedBy?: Types.ObjectId | IUser;
 };
 
